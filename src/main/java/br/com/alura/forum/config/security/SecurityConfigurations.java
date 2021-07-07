@@ -49,7 +49,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
 		.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-		.anyRequest().authenticated()
+		.antMatchers(HttpMethod.DELETE, "/topicos/*").hasRole("MODERADOR")
 		.and().csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
